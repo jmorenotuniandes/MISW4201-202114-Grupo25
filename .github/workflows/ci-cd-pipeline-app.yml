@@ -57,10 +57,11 @@ jobs:
       id: pruebas
       run: |
         python -m coverage run -m unittest discover tests 
-         python -m coverage xml -i 
+        python -m coverage xml -i 
 
   build1:
     name: CI-Frontend
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: Repository checkout
