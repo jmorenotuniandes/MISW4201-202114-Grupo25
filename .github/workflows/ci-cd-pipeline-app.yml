@@ -57,7 +57,7 @@ jobs:
       id: pruebas
       run: |
         python -m coverage run -m unittest discover tests 
-        python -m coverage xml -i 
+        python -m test-results xml -i 
 
   build1:
     name: CI-Frontend
