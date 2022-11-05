@@ -5,7 +5,7 @@ name: Ionic Angular and Python application
 
 on:
   push:
-    branches: [ feature/** ]
+    branches: [ main, feature/** ]
   pull_request:
     types:
       - assigned
@@ -46,6 +46,13 @@ jobs:
     - name: Unit test python
       run: |
         pytest
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   build1:
     name: CI-Frontend
     runs-on: ubuntu-latest
