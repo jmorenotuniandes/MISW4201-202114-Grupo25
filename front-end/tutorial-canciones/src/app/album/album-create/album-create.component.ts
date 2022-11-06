@@ -94,4 +94,25 @@ export class AlbumCreateComponent implements OnInit {
     })
   }
 
+  createAlbum1(newAlbum: Album){
+    this.albumForm.get('anio')?.setValue(parseInt(this.albumForm.get('anio')?.value))
+    this.albumService.crearAlbum(this.userId, this.token, newAlbum)
+    .subscribe(album => {
+      this.showSuccess(album)
+      this.albumForm.reset()
+      this.routerPath.navigate([`/albumes/${this.userId}/${this.token}`])
+    },
+    error=> {
+      if(error.statusText === "UNAUTHORIZED"){
+        this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
+      }
+      else if(error.statusText === "UNPROCESSABLE ENTITY"){
+        this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
+      }
+      else{
+        this.showError("Ha ocurrido un error. " + error.message)
+      }
+    })
+  }
+
 }
