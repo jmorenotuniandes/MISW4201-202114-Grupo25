@@ -47,8 +47,11 @@ jobs:
       run: |
         pytest
 
-    - name: Run tox
-      run: tox -e py
+    - name: pruebas+coverage
+      id: pruebas
+      run: | 
+        python -m coverage run -m unittest discover tests 
+        python -m coverage xml -i
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
